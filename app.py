@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -28,6 +28,33 @@ def get():
     })
 
 
+@app.route('/', methods=['POST'])
+def post():
+    Enum = request.json['operation_type']
+    operation_type = Enum["value"]
+
+    x = request.json['x']
+    y = request.json['y']
+
+    result = 0
+    if operation_type == 'addition':
+        result = x + y
+    elif operation_type == 'subtraction':
+        result = x - y
+    elif operation_type == 'multiplication':
+        result = x * y
+    elif operation_type == 'division':
+        result = x / y
+    else:
+        result = 'Invalid Operation'
+
+    return jsonify({
+        "slackUsername": "JoelOjerinde",
+        "operation_type": operation_type,
+        "result": result
+    }), 200
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
