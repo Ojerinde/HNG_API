@@ -26,13 +26,11 @@ def get():
         'bio': 'I am a Full stack developer and an Electrical and Electronics Engineering student at the University of Ilorin',
         'backend': True,
     })
-
+# “Can you please add the following numbers together - 13 and 25.”
 
 @app.route('/', methods=['POST'])
 def post():
-    Enum = request.json['operation_type']
-    operation_type = Enum["value"]
-
+    operation_type = request.json['operation_type']
     x = request.json['x']
     y = request.json['y']
 
