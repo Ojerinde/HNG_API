@@ -50,14 +50,13 @@ def post():
             result = 'Invalid Operation'
     else:
         words = operation_type.translate(str.maketrans('', '', string.punctuation)).split()
-        new_opreator = ''
+        new_operator = ''
         for word in words:
-            if word in ['add', 'sub','subtract', 'minus', 'plus', 'sum', 'multiply', 'times', ]:
-                new_opreator = word
-            else:
-                result = 'Invalid Operation'
-
-        operation_type = new_opreator
+            if word in ['add', 'addition', 'sub','subtract', 'minus','subtraction', 'plus', 'sum', 'multiply', 'times', "mul", "multiplication" ]:
+                new_operator = word
+                break
+            
+        operation_type = new_operator
         numbers = []   
         for word in words:
             if word.isnumeric():
@@ -65,15 +64,13 @@ def post():
 
         result = 0
         for num in numbers:
-            if new_opreator == 'add':
+            if new_operator == 'add' or new_operator == 'addition' or new_operator == 'plus' or new_operator == 'sum':
                 result += num
-            elif new_opreator == 'sub' or new_opreator == 'subtract' or new_opreator == 'minus':
-                result -= num
-            elif new_opreator == 'multiply' or new_opreator == 'times':
+            elif new_operator == 'mul' or new_operator == 'multiply' or new_operator == 'times' or new_operator == 'multiplication':
                 result *= num
-            else:
-                result = 'Invalid Operation'
-
+            elif new_operator == 'sub' or new_operator == 'subtract' or new_operator == 'minus' or new_operator == 'subtraction':
+                result -= num
+            
     return jsonify({
         "slackUsername": "JoelOjerinde",
         "operation_type": operation_type,
